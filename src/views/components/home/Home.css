@@ -1,0 +1,43 @@
+#searchBar {
+  width: max-content;
+  margin: auto;
+}
+
+.row {
+  --bs-gutter-x: 0rem;
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  width: 20rem;
+  max-height: auto;
+  justify-self: center;
+
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+  border-radius: 1rem;
+}
+
+.card-body {
+  justify-content: space-between;
+  flex-direction: column;
+  display: flex;
+}
+
+.card-title {
+  font-size: 2rem;
+}
+
+.card-text {
+  font-size: 1.5rem;
+}
+
+.btn-primary#detailsButton {
+  display: flex;
+  justify-content: center;
+  border-radius: 1rem;
+}

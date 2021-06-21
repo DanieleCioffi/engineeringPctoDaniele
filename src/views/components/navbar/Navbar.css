@@ -1,0 +1,26 @@
+.container-fluid#container {
+  background-color: #5d5d61;
+}
+
+#login {
+  float: right;
+  margin-top: 1rem;
+  border-radius: 1rem;
+}
+
+#register {
+  float: right;
+  margin-top: 1rem;
+  margin-right: 0.5rem;
+  border-radius: 1rem;
+}
+
+#logo {
+  float: left;
+  margin-top: 0.6rem;
+  margin-left: 0.6rem;
+}
+
+#title {
+  color: white;
+}
