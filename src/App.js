@@ -7,8 +7,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 class App {
-  constructor() {
+  constructor(header, home, footer) {
     this.init();
+    this.header = new Navbar();
+    this.home = new Home();
+    this.footer = new Footer();
   }
 
   /**
@@ -39,7 +42,8 @@ class App {
    * dove è definito il layout generale dell'applicazione
    */
   render() {
-    this.app.innerHTML = Navbar.render() + Home.render() + Footer.render();
+    this.app.innerHTML =
+      this.header.render() + this.home.render() + this.footer.render();
   }
 }
 
