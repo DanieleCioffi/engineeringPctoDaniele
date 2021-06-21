@@ -76,6 +76,12 @@ class Home {
     }
     this.showCards(res);
   }
+
+  addActionListener() {
+    document
+      .getElementById("searchBtn")
+      .addEventListener("click", this.searchFilm.bind(this));
+  }
 }
 
 class Movie {

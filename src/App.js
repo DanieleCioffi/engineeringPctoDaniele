@@ -44,6 +44,7 @@ class App {
   render() {
     this.app.innerHTML =
       this.header.render() + this.home.render() + this.footer.render();
+    this.home.addActionListener();
   }
 }
 
