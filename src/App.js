@@ -44,7 +44,8 @@ class App {
   render() {
     this.app.innerHTML =
       this.header.render() + this.home.render() + this.footer.render();
-    this.home.addActionListener();
+    history.pushState({ page: "homepage" }, "title 1", "homepage");
+    document.getElementById("titleWebSite").innerHTML = "Homepage";
   }
 }
 
