@@ -61,6 +61,8 @@ class App {
       if (location.pathname === "/homepage") {
         document.getElementById("main-container").innerHTML =
           this.home.render();
+      } else if (location.pathname.search("trailer") > 0) {
+        this.details.showTrailer();
       } else {
         document.getElementById("main-container").innerHTML =
           this.details.render();
