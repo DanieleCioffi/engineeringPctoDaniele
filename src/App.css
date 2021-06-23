@@ -1,6 +1,7 @@
 @import "views/components/footer/footer.css";
 @import "views/components/home/Home.css";
 @import "views/components/navbar/Navbar.css";
+@import "views/components/details/details.css";
 
 body {
   font-size: 2.875rem;
