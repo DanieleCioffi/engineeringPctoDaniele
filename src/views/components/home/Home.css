@@ -3,14 +3,14 @@
   margin: auto;
 }
 
-.row {
+.row#films {
   --bs-gutter-x: 0rem;
   display: flex;
   justify-content: center;
   margin-left: 0;
 }
 
-.card {
+#films .card {
   width: 20rem;
   max-height: auto;
   justify-self: center;
@@ -23,21 +23,21 @@
   border-radius: 1rem;
 }
 
-.card-body {
+#films .card-body {
   justify-content: space-between;
   flex-direction: column;
   display: flex;
 }
 
-.card-title {
+#films .card-title {
   font-size: 2rem;
 }
 
-.card-text {
+#films .card-text {
   font-size: 1.5rem;
 }
 
-.btn-primary {
+#films .btn-primary {
   display: flex;
   justify-content: center;
   border-radius: 1rem;
