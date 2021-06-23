@@ -1,10 +1,8 @@
 class Home {
-  constructor(list) {
-    this.initList();
-    this.element;
-  }
+  constructor(list) {}
 
   render() {
+    this.initList();
     return `
         <form class="d-flex" id="searchBar" style="width: max-content;">
             <input id="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

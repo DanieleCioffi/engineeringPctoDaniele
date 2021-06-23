@@ -61,7 +61,6 @@ class App {
       if (location.pathname === "/homepage") {
         document.getElementById("main-container").innerHTML =
           this.home.render();
-        this.home.showCards(this.home.list);
       } else {
         document.getElementById("main-container").innerHTML =
           this.details.render();
