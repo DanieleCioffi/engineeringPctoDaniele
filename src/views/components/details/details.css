@@ -1,0 +1,58 @@
+.card.mb-3 {
+  display: flex;
+  width: 200rem;
+}
+
+.col-md-8 {
+  justify-content: space-between;
+  display: flex;
+}
+
+.center-div {
+  display: flex;
+  justify-content: center;
+}
+
+#details .row.no-gutters {
+  --bs-gutter-x: 0rem;
+  margin-left: 0;
+  width: fit-content;
+  display: flex;
+  justify-content: flex-start;
+}
+
+#details .card-body {
+  justify-content: space-between;
+  flex-direction: column;
+  display: flex;
+  font-size: 2rem;
+}
+
+#details .card-text {
+  width: 100%;
+}
+
+#details .card-title {
+  font-size: 5rem;
+}
+
+#details .btn-div {
+  justify-content: space-between;
+  flex-direction: row;
+  display: flex;
+}
+
+.btn.btn-primary {
+  border-radius: 1rem;
+}
+
+.embed-responsive.embed-responsive-16by9 {
+  max-width: 100rem;
+  max-height: 50rem;
+}
+
+.videoDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
