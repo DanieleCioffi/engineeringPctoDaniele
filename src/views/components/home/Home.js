@@ -34,7 +34,8 @@ class Home {
               tmp.overview,
               tmp.poster_path,
               tmp.release_date,
-              "detailsButton" + i
+              "detailsButton" + i,
+              tmp.id
             )
           );
         }
@@ -48,17 +49,19 @@ class Home {
   showCards(values) {
     let obj = "";
     for (let i = 0; i < values.length; i++) {
-      obj += `<div class="card" id="body">
-        <img class="card-img-top" src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${values[i].poster_path}"
-        alt="Card image cap"></img>
-        <div class="card-body">
-        <h5 class="card-title">${values[i].title}</h5>
-        <p class="card-text">${values[i].overview}</p>
-        <div class="btn-div">
-        <a class="btn btn-primary" id="detailsButton${i}">Details</a>
+      obj += `
+        <div class="card">
+            <img class="card-img-top" src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${values[i].poster_path}"
+            alt="Card image cap"></img>
+            <div class="card-body">
+                <h5 class="card-title">${values[i].title}</h5>
+                <p class="card-text">${values[i].overview}</p>
+                <div class="btn-div">
+                    <a class="btn btn-primary" id="detailsButton${i}">Details</a>
+                </div>
+            </div>
         </div>
-        </div>
-        </div>`;
+        `;
     }
     document.getElementById("films").innerHTML = obj;
     this.addActionListener();
@@ -76,66 +79,40 @@ class Home {
       }
     }
     this.showCards(res);
-    history.pushState({ page: "homepage" }, "title 2", "homepage");
-    document.getElementById("titleWebSite").innerHTML = "Homepage";
-  }
-
-  //shows the details of the movie that the user selected
-  showDetails(element) {
-    this.element = element;
-    document.getElementById("films").innerHTML = `
-        <p>${element.totalOverview}</p>
-    `;
-
-    document.getElementById("filmSelection").innerHTML = element.title;
-    history.pushState(
-      { page: "details" },
-      "title 3",
-      "Details " + element.title
-    );
-    document.getElementById("titleWebSite").innerHTML =
-      "Details " + element.title;
   }
 
   //actionListener for the search button and popstate events
   addActionListener() {
-    let that = this;
-
-    for (let i = 0; i < that.list.length; i++) {
+    for (let i = 0; i < this.list.length; i++) {
       document
-        .getElementById(that.list[i].btnId)
+        .getElementById(this.list[i].btnId)
         .addEventListener("click", () => {
-          that.showDetails(that.list[i]);
+          history.pushState(
+            { page: 1 },
+            "title 2",
+            location.pathname + "/" + this.list[i].id
+          );
+          window.dispatchEvent(new Event("popstate"));
+          document.getElementById("titleWebSite").innerHTML = "details";
         });
     }
 
     document
       .getElementById("searchBtn")
       .addEventListener("click", this.searchFilm.bind(this));
-
-    window.addEventListener("popstate", (e) => {
-      alert(
-        `location: ${document.location}, state: ${JSON.stringify(e.state)}`
-      );
-
-      if (e.state.page === "homepage") {
-        that.showCards(that.list);
-      } else if (e.state.page === "details") {
-        that.showDetails(that.element);
-      }
-    });
   }
 }
 
 //class that defines movie objects
 class Movie {
-  constructor(title, overview, poster_path, date, btnId) {
+  constructor(title, overview, poster_path, date, btnId, id) {
     this.title = title;
     this.overview = overview;
     this.poster_path = poster_path;
     this.date = date;
     this.totalOverview = this.cutOverview();
     this.btnId = btnId;
+    this.id = id;
   }
 
   cutOverview() {
