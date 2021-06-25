@@ -39,6 +39,13 @@
 
 #films .btn-primary {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   border-radius: 1rem;
+}
+
+#films .btn-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
 }
