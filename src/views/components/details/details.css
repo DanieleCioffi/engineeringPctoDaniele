@@ -1,58 +1,61 @@
-.card.mb-3 {
-  display: flex;
-  width: 200rem;
-}
-
 .col-md-8 {
-  justify-content: space-between;
   display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
-.center-div {
+.row {
+  display: flex;
+  justify-self: center;
+  margin: 0;
+}
+
+.col-sm {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
-#details .row.no-gutters {
-  --bs-gutter-x: 0rem;
-  margin-left: 0;
-  width: fit-content;
+.center {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-around;
 }
 
-#details .card-body {
+#cardBody {
+  max-height: 24rem;
   justify-content: space-between;
   flex-direction: column;
   display: flex;
   font-size: 2rem;
 }
 
-#details .card-text {
-  width: 100%;
+#cardBody .btn-div {
+  margin-top: 1rem;
 }
 
-#details .card-title {
-  font-size: 5rem;
-}
-
-#details .btn-div {
-  justify-content: space-between;
-  flex-direction: row;
-  display: flex;
+.d-flex {
+  width: 30rem;
+  margin: auto;
 }
 
 .btn.btn-primary {
   border-radius: 1rem;
 }
 
-.embed-responsive.embed-responsive-16by9 {
-  max-width: 100rem;
-  max-height: 50rem;
+#backBtn {
+  vertical-align: top;
 }
 
-.videoDiv {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+#descriptionBtn {
+  vertical-align: top;
+  float: right;
+}
+
+#trailerBtn {
+  float: right;
+}
+
+.embed-responsive-item {
+  min-width: 30rem;
+  min-height: 15rem;
 }
