@@ -33,12 +33,14 @@ class Home {
               tmp.poster_path,
               tmp.release_date,
               "detailsButton" + i,
+              "favoriteBtn" + i,
               tmp.id
             )
           );
         }
 
         this.list = list;
+        this.favorites = [];
         this.showCards(this.list);
       });
   }
@@ -55,14 +57,15 @@ class Home {
                 <h5 class="card-title">${values[i].title}</h5>
                 <p class="card-text">${values[i].overview}</p>
                 <div class="btn-div">
-                    <a class="btn btn-primary" id="detailsButton${i}">Details</a>
+                    <a class ="btn btn-primary" value="no" id="${values[i].favoriteBtn}"><i class="far fa-star"></i></a>
+                    <a class="btn btn-primary" id="${values[i].btnId}">Details</a>
                 </div>
             </div>
         </div>
         `;
     }
     document.getElementById("films").innerHTML = obj;
-    this.addActionListener();
+    this.addActionListener(values);
   }
 
   //searches for the string written in the searchbox and shows all the cards whose title contains the string
@@ -80,20 +83,43 @@ class Home {
   }
 
   //actionListener for the search button and popstate events
-  addActionListener() {
-    for (let i = 0; i < this.list.length; i++) {
+  addActionListener(values) {
+    for (let i = 0; i < values.length; i++) {
+      document.getElementById(values[i].btnId).addEventListener("click", () => {
+        history.pushState(
+          { page: 1 },
+          "title 2",
+          location.pathname + "/" + values[i].id
+        );
+        window.dispatchEvent(new Event("popstate"));
+        document.getElementById("titleWebSite").innerHTML = "details";
+      });
+
       document
-        .getElementById(this.list[i].btnId)
+        .getElementById(values[i].favoriteBtn)
         .addEventListener("click", () => {
-          history.pushState(
-            { page: 1 },
-            "title 2",
-            location.pathname + "/" + this.list[i].id
-          );
-          window.dispatchEvent(new Event("popstate"));
-          document.getElementById("titleWebSite").innerHTML = "details";
+          let icon = document.getElementById(values[i].favoriteBtn);
+          console.log(icon.firstChild);
+
+          if (icon.value === "no") {
+            icon.value = "yes";
+            icon.className = "fas fa-star";
+            this.favorites.push(values[i].id);
+          }
+          if (icon.value === "si") {
+            icon.value = "yes";
+            icon.className = "far fa-star";
+            this.favorites.pop(values[i].id);
+
+            for (let j = 0; j < this.favorites.length; j++) {
+              if (values[i].id === this.favorites[i].id)
+                this.favorites.splice(j, 1);
+            }
+          }
         });
     }
+
+    console.log(this.favorites);
 
     document
       .getElementById("searchBtn")
@@ -103,13 +129,14 @@ class Home {
 
 //class that defines movie objects
 class Movie {
-  constructor(title, overview, poster_path, date, btnId, id) {
+  constructor(title, overview, poster_path, date, btnId, favoriteBtn, id) {
     this.title = title;
     this.overview = overview;
     this.poster_path = poster_path;
     this.date = date;
     this.totalOverview = this.cutOverview();
     this.btnId = btnId;
+    this.favoriteBtn = favoriteBtn;
     this.id = id;
   }
 
