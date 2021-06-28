@@ -20,7 +20,7 @@ class Details {
 
   addBackListener() {
     document.getElementById("backBtn").addEventListener("click", () => {
-      this.trailer = undefined;
+      this.trailer = null;
       window.history.back();
     });
   }
@@ -65,7 +65,7 @@ class Details {
   }
 
   async showTrailer() {
-    if (this.trailer === undefined) {
+    if (!this.trailer) {
       await fetch(
         `https://api.themoviedb.org/3/movie/${this.movieId}/videos?api_key=c4d79d0d1e50bf8bc86b7afbd240e4df&language=en-US`
       )
