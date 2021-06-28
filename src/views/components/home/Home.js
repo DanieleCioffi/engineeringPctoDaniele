@@ -7,9 +7,10 @@ class Home {
         <form class="d-flex" id="searchBar" style="width: max-content;">
             <input id="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button id="searchBtn"class="btn btn-outline-success" type ="button">Search</button>
+            <button id="favoriteBtn"class="btn btn-outline-success" type ="button">Favorites</button>
         </form>
   
-        <h1 align="center" id="filmSelection">Selezione film</h1>
+        <h1 align="center" id="filmSelection">Film selection</h1>
   
         <div id="films" class='row'></div>`;
   }
@@ -41,6 +42,7 @@ class Home {
 
         this.list = list;
         this.favorites = [];
+        this.initFavorites();
         this.showCards(this.list);
       });
   }
@@ -66,6 +68,7 @@ class Home {
     }
     document.getElementById("films").innerHTML = obj;
     this.addActionListener(values);
+    this.updateFavorites();
   }
 
   //searches for the string written in the searchbox and shows all the cards whose title contains the string
@@ -80,6 +83,58 @@ class Home {
       }
     }
     this.showCards(res);
+    this.updateFavorites();
+
+    if (!value)
+      document.getElementById("filmSelection").innerHTML = "Film selection";
+    else document.getElementById("filmSelection").innerHTML = "Results";
+  }
+
+  //shows all the favorite movies as cards
+  showFavorites() {
+    let favorites = localStorage.getItem("favorites");
+    favorites = JSON.parse(favorites);
+    let movies = [];
+
+    for (let i = 0; i < favorites.length; i++) {
+      for (let j = 0; j < this.list.length; j++) {
+        if (favorites[i] == this.list[j].id) {
+          movies.push(this.list[j]);
+        }
+      }
+    }
+
+    this.showCards(movies);
+    this.updateFavorites();
+    document.getElementById("filmSelection").innerHTML = "Favorites";
+  }
+
+  //initializes favorite films
+  initFavorites() {
+    let favorites = localStorage.getItem("favorites");
+    favorites = JSON.parse(favorites);
+
+    for (let i = 0; i < favorites.length; i++) {
+      this.favorites.push(favorites[i]);
+    }
+  }
+
+  //updates the favorite buttons
+  updateFavorites() {
+    let favorites = localStorage.getItem("favorites");
+    favorites = JSON.parse(favorites);
+    let tmp;
+
+    for (let i = 0; i < this.list.length; i++) {
+      for (let j = 0; j < this.list.length; j++) {
+        if (this.list[i].id == this.favorites[j]) {
+          tmp = document.getElementById(this.list[i].favoriteBtn).firstChild;
+          tmp.setAttribute("data-prefix", "fas");
+          tmp.classList.remove("far");
+          tmp.classList.add("fas");
+        }
+      }
+    }
   }
 
   //actionListener for the search button and popstate events
@@ -98,32 +153,39 @@ class Home {
       document
         .getElementById(values[i].favoriteBtn)
         .addEventListener("click", () => {
-          let icon = document.getElementById(values[i].favoriteBtn);
-          console.log(icon.firstChild);
+          let currentMovieId = values[i].id.toString();
+          let icon = document.getElementById(values[i].favoriteBtn).firstChild;
 
-          if (icon.value === "no") {
-            icon.value = "yes";
-            icon.className = "fas fa-star";
-            this.favorites.push(values[i].id);
-          }
-          if (icon.value === "si") {
-            icon.value = "yes";
-            icon.className = "far fa-star";
-            this.favorites.pop(values[i].id);
+          if (icon.getAttribute("data-prefix") == "far") {
+            icon.setAttribute("data-prefix", "fas");
+
+            this.favorites.push(currentMovieId);
+            localStorage.setItem("favorites", JSON.stringify(this.favorites));
+          } else if (icon.getAttribute("data-prefix") == "fas") {
+            icon.setAttribute("data-prefix", "far");
 
             for (let j = 0; j < this.favorites.length; j++) {
-              if (values[i].id === this.favorites[i].id)
+              if (this.favorites[j] == currentMovieId) {
                 this.favorites.splice(j, 1);
+                localStorage.setItem(
+                  "favorites",
+                  JSON.stringify(this.favorites)
+                );
+              }
             }
+
+            console.log(this.favorites);
           }
         });
     }
 
-    console.log(this.favorites);
-
     document
       .getElementById("searchBtn")
       .addEventListener("click", this.searchFilm.bind(this));
+
+    document
+      .getElementById("favoriteBtn")
+      .addEventListener("click", this.showFavorites.bind(this));
   }
 }
 
