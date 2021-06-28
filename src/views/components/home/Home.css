@@ -49,3 +49,7 @@
   justify-content: space-between;
   align-items: stretch;
 }
+
+.btn.btn-outline-success {
+  margin-right: 0.5rem;
+}
