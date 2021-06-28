@@ -111,11 +111,15 @@ class Home {
 
   //initializes favorite films
   initFavorites() {
-    let favorites = localStorage.getItem("favorites");
-    favorites = JSON.parse(favorites);
+    let favorites;
 
-    for (let i = 0; i < favorites.length; i++) {
-      this.favorites.push(favorites[i]);
+    if (favorites) {
+      favorites = localStorage.getItem("favorites");
+      favorites = JSON.parse(favorites);
+
+      for (let i = 0; i < favorites.length; i++) {
+        this.favorites.push(favorites[i]);
+      }
     }
   }
 
