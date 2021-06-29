@@ -7,3 +7,12 @@
 .text-center.text-dark.p-3 {
   font-size: 1rem;
 }
+
+footer {
+  display: flex;
+}
+
+.text-center.text-dark.p-3 {
+  display: flex;
+  align-items: center;
+}
