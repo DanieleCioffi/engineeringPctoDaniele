@@ -2,6 +2,15 @@ class Details {
   constructor() {}
 
   render() {
+    return `
+        <div class="center">
+        <div class="card mb-3" style="max-width:50%" id = "main-details">
+        </div>
+        </div>
+    `;
+  }
+
+  init() {
     this.location = location.pathname;
     this.movieId = location.pathname.split("/")[2];
     this.data;
@@ -38,28 +47,26 @@ class Details {
   }
 
   showDescription() {
-    document.getElementById("main-container").innerHTML = `
-            <div class="center">
-            <div class="card mb-3" style="max-width:50%">
-            <div class="row no-gutters">
-                <div class="col-md-4">
+    document.getElementById("main-details").innerHTML = `
+        <div class="row no-gutters">
+            <div class="col-md-4">
                 <img src=https://www.themoviedb.org/t/p/w600_and_h900_bestv2${this.data.poster_path} class="img-fluid" alt="...">
-                </div>
-                <div class="col-md-8">
+            </div>
+            <div class="col-md-8">
                 <div class="card-body" id="cardBody">
                     <h5 class="card-title" style="font-size: 2rem">${this.data.title}</h5>
                     <p class="card-text" id="descriptionContainer" style="font-size: 1rem">${this.data.overview}</p>
                     <div class="btn-div">
                         <button id="backBtn" class="btn btn-primary" >Back</button>
                         <button id="trailerBtn" style="float:right" class="btn btn-primary">Trailer</button>
+                        <button id="descriptionBtn" class="btn btn-secondary" >Description</button>
                     </div>
                 </div>
-                </div>
-            </div>
             </div>
         </div>
     `;
 
+    document.getElementById("descriptionBtn").disabled = true;
     this.addBackListener();
     this.addTrailerListener();
   }
@@ -82,10 +89,12 @@ class Details {
         </div>
         <div class="btn-div">
             <button class="btn btn-primary" id="backBtn">Back</button>
+            <button class="btn btn-secondary" id="trailerBtn">Trailer</button>
             <button class="btn btn-primary" id="descriptionBtn">Description</button>
         </div>
     `;
 
+    document.getElementById("trailerBtn").disabled = true;
     console.log(this.trailer.results[0].key);
 
     this.addBackListener();
