@@ -49,10 +49,14 @@
 #descriptionBtn {
   vertical-align: top;
   float: right;
+  border-radius: 1rem;
 }
 
 #trailerBtn {
   float: right;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  border-radius: 1rem;
 }
 
 .embed-responsive-item {
