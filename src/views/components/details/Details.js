@@ -88,10 +88,6 @@ class Details {
 
     console.log(this.trailer.results[0].key);
 
-    document.getElementById("descriptionBtn").addEventListener("click", () => {
-      this.showDescription();
-    });
-
     this.addBackListener();
     this.addDescriptionListener();
   }
