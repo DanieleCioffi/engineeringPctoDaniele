@@ -51,6 +51,8 @@ class App {
       "</div>" +
       this.footer.render();
 
+    this.home.init();
+
     history.pushState({ page: 1 }, "title 1", "homepage");
     document.getElementById("titleWebSite").innerHTML = "homepage";
     this.addListener();
@@ -61,9 +63,11 @@ class App {
       if (location.pathname === "/homepage") {
         document.getElementById("main-container").innerHTML =
           this.home.render();
+        this.home.init();
       } else {
         document.getElementById("main-container").innerHTML =
           this.details.render();
+        this.details.init();
       }
     };
   }
