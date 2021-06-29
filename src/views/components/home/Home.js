@@ -2,7 +2,6 @@ class Home {
   constructor(list) {}
 
   render() {
-    this.initList();
     return `
         <form class="d-flex" id="searchBar" style="width: max-content;">
             <input id="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -16,14 +15,13 @@ class Home {
   }
 
   //initializes the list using fetch from a server
-  async initList() {
+  init() {
     fetch(
       "https://api.themoviedb.org/3/movie/popular?api_key=c4d79d0d1e50bf8bc86b7afbd240e4df&language=en&page=1"
     )
       .then((response) => response.json())
       .then((data) => {
         let list = [];
-        let tmp;
 
         data.results.forEach((element, index) => {
           list.push(
@@ -74,7 +72,7 @@ class Home {
 
   //searches for the string written in the searchbox and shows all the cards whose title contains the string
   searchFilm() {
-    let value = document.getElementById("search").value;
+    const value = document.getElementById("search").value;
     let res = [];
     let tmp;
 
@@ -93,8 +91,7 @@ class Home {
 
   //shows all the favorite movies as cards
   showFavorites() {
-    let favorites = localStorage.getItem("favorites");
-    favorites = JSON.parse(favorites);
+    const favorites = JSON.parse(localStorage.getItem("favorites"));
     let movies = [];
 
     favorites.forEach((favorite) => {
@@ -110,13 +107,9 @@ class Home {
 
   //initializes favorite films
   initFavorites() {
-    let favorites = localStorage.getItem("favorites");
-    favorites = JSON.parse(favorites);
+    const favorites = JSON.parse(localStorage.getItem("favorites"));
 
     if (favorites) {
-      favorites = localStorage.getItem("favorites");
-      favorites = JSON.parse(favorites);
-
       favorites.forEach((element) => {
         this.favorites.push(element);
       });
@@ -125,8 +118,7 @@ class Home {
 
   //updates the favorite buttons
   updateFavorites() {
-    let favorites = localStorage.getItem("favorites");
-    favorites = JSON.parse(favorites);
+    const favorites = JSON.parse(localStorage.getItem("favorites"));
     let tmp;
 
     this.list.forEach((element) => {
@@ -157,8 +149,10 @@ class Home {
       document
         .getElementById(values[i].favoriteBtn)
         .addEventListener("click", () => {
-          let currentMovieId = values[i].id.toString();
-          let icon = document.getElementById(values[i].favoriteBtn).firstChild;
+          const currentMovieId = values[i].id.toString();
+          const icon = document.getElementById(
+            values[i].favoriteBtn
+          ).firstChild;
 
           if (icon.getAttribute("data-prefix") == "far") {
             icon.setAttribute("data-prefix", "fas");
@@ -208,7 +202,7 @@ class Movie {
 
   cutOverview() {
     const maxChar = 200;
-    let res = this.overview;
+    const res = this.overview;
 
     if (this.overview.length > maxChar) {
       this.overview = this.overview.slice(0, maxChar);
