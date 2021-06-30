@@ -140,7 +140,7 @@ class Home {
         history.pushState(
           { page: 1 },
           "title 2",
-          location.pathname + "/" + values[i].id
+          location.pathname + "/details/" + values[i].id
         );
         window.dispatchEvent(new Event("popstate"));
         document.getElementById("titleWebSite").innerHTML = "details";
