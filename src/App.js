@@ -14,6 +14,7 @@ class App {
     this.home = new Home();
     this.footer = new Footer();
     this.details = new Details();
+    this.map = new Map();
   }
 
   /**
@@ -54,21 +55,20 @@ class App {
     this.home.init();
 
     history.pushState({ page: 1 }, "title 1", "homepage");
+    this.map.set("/homepage", this.home);
     document.getElementById("titleWebSite").innerHTML = "homepage";
     this.addListener();
   }
 
   addListener() {
     window.onpopstate = () => {
-      if (location.pathname === "/homepage") {
-        document.getElementById("main-container").innerHTML =
-          this.home.render();
-        this.home.init();
-      } else {
-        document.getElementById("main-container").innerHTML =
-          this.details.render();
-        this.details.init();
-      }
+      if (location.pathname.search("details") > 0)
+        this.map.set(location.pathname, this.details);
+
+      document.getElementById("main-container").innerHTML = this.map
+        .get(location.pathname)
+        .render();
+      this.map.get(location.pathname).init();
     };
   }
 }
