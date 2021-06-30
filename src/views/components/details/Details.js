@@ -12,7 +12,7 @@ class Details {
 
   init() {
     this.location = location.pathname;
-    this.movieId = location.pathname.split("/")[2];
+    this.movieId = location.pathname.split("/")[3];
     this.data;
     this.trailer;
     console.log(this.movieId);
