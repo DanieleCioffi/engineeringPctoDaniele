@@ -3,9 +3,11 @@ import Navbar from "./views/components/navbar/Navbar";
 import Home from "./views/components/home/Home";
 import Footer from "./views/components/footer/Footer";
 import Details from "./views/components/details/Details";
+import Route from "./Route";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import route from "color-convert/route";
 
 class App {
   constructor(header, home, footer, details) {
@@ -14,7 +16,6 @@ class App {
     this.home = new Home();
     this.footer = new Footer();
     this.details = new Details();
-    this.map = new Map();
   }
 
   /**
@@ -55,20 +56,26 @@ class App {
     this.home.init();
 
     history.pushState({ page: 1 }, "title 1", "homepage");
-    this.map.set("/homepage", this.home);
+    //this.map.set("/homepage", this.home);
     document.getElementById("titleWebSite").innerHTML = "homepage";
     this.addListener();
   }
 
   addListener() {
     window.onpopstate = () => {
-      if (location.pathname.search("details") > 0)
-        this.map.set(location.pathname, this.details);
+      let path;
+      const keys = [...Route.keys()];
 
-      document.getElementById("main-container").innerHTML = this.map
-        .get(location.pathname)
-        .render();
-      this.map.get(location.pathname).init();
+      keys.forEach((element, index) => {
+        if (element === location.pathname.split("/")[index + 1])
+          path = location.pathname.split("/")[index + 1];
+      });
+
+      if (Route.has(path)) {
+        const element = new (Route.get(path))();
+        document.getElementById("main-container").innerHTML = element.render();
+        element.init();
+      }
     };
   }
 }
